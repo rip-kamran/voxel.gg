@@ -1,0 +1,14 @@
+// ========== VOXEL.GG CONFIGURATION ==========
+// Update this file with your Supabase Edge Function URL
+
+// Replace 'your-project' with your actual Supabase project name
+// Example: https://abcdefgh.supabase.co/functions/v1/voxel-api
+
+window.VOXEL_CONFIG = {
+  API_URL: 'https://your-project.supabase.co/functions/v1/voxel-api',
+  BRAND: 'Voxel.gg',
+  TIMEOUT: 30000,
+};
+
+// Make it global
+const API_URL = window.VOXEL_CONFIG.API_URL;
