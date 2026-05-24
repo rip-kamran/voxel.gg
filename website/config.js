@@ -5,7 +5,8 @@
 // Example: https://abcdefgh.supabase.co/functions/v1/voxel-api
 
 window.VOXEL_CONFIG = {
-  API_URL: 'https://your-project.supabase.co/functions/v1/voxel-api',
+  API_URL: 'https://jzhzbiwvdrwhycwidhmx.supabase.co/functions/v1/voxel-api',
+  WEBSOCKET_URL: 'wss://jzhzbiwvdrwhycwidhmx.supabase.co/functions/v1/voxel-ws',
   BRAND: 'Voxel.gg',
   TIMEOUT: 30000,
 };
