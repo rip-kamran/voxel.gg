@@ -1,0 +1,1044 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="Voxel.gg - AI-powered Luau script generation for Roblox Studio. Get 20 free credits monthly.">
+    <meta name="theme-color" content="#00aaff">
+    <title>Voxel.gg - AI Luau Script Generator for Roblox</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        :root {
+            --primary: #00aaff;
+            --primary-dark: #0078d4;
+            --secondary: #00d47f;
+            --accent: #ff6b35;
+            --warning: #ffa500;
+            --error: #ff4444;
+            --dark: #0a0e27;
+            --darker: #050810;
+            --light: #f0f2f5;
+            --text: #e0e0e0;
+            --text-muted: #999;
+        }
+
+        html {
+            scroll-behavior: smooth;
+        }
+
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, sans-serif;
+            background: linear-gradient(135deg, var(--dark) 0%, var(--darker) 100%);
+            color: var(--text);
+            line-height: 1.6;
+            overflow-x: hidden;
+        }
+
+        /* ============ HEADER ============ */
+        header {
+            background: rgba(5, 8, 16, 0.95);
+            backdrop-filter: blur(20px);
+            border-bottom: 1px solid rgba(0, 170, 255, 0.2);
+            position: sticky;
+            top: 0;
+            z-index: 100;
+            padding: 1rem 0;
+        }
+
+        .header-container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 2rem;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .header-logo {
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+            font-size: 1.8rem;
+            font-weight: 900;
+            background: linear-gradient(135deg, var(--primary) 0%, var(--secondary) 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            cursor: pointer;
+            transition: transform 0.3s;
+        }
+
+        .header-logo:hover {
+            transform: scale(1.05);
+        }
+
+        .header-nav {
+            display: flex;
+            gap: 2rem;
+            align-items: center;
+        }
+
+        .header-nav a {
+            color: var(--text-muted);
+            text-decoration: none;
+            font-weight: 500;
+            transition: color 0.3s;
+            font-size: 0.95rem;
+        }
+
+        .header-nav a:hover {
+            color: var(--primary);
+        }
+
+        .header-nav a.active {
+            color: var(--primary);
+            border-bottom: 2px solid var(--primary);
+            padding-bottom: 0.25rem;
+        }
+
+        .install-btn {
+            background: linear-gradient(135deg, var(--primary) 0%, var(--primary-dark) 100%);
+            color: white;
+            border: none;
+            padding: 0.65rem 1.5rem;
+            border-radius: 8px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s;
+            font-size: 0.95rem;
+        }
+
+        .install-btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 10px 30px rgba(0, 170, 255, 0.3);
+        }
+
+        .install-btn:active {
+            transform: translateY(0);
+        }
+
+        @media (max-width: 768px) {
+            .header-nav {
+                display: none;
+            }
+        }
+
+        /* ============ HERO ============ */
+        .hero {
+            min-height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            padding: 2rem;
+            text-align: center;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .hero::before {
+            content: '';
+            position: absolute;
+            width: 500px;
+            height: 500px;
+            background: radial-gradient(circle, rgba(0, 170, 255, 0.15) 0%, transparent 70%);
+            border-radius: 50%;
+            top: -250px;
+            right: -250px;
+            animation: float 6s ease-in-out infinite;
+        }
+
+        .hero::after {
+            content: '';
+            position: absolute;
+            width: 400px;
+            height: 400px;
+            background: radial-gradient(circle, rgba(0, 212, 127, 0.1) 0%, transparent 70%);
+            border-radius: 50%;
+            bottom: -200px;
+            left: -200px;
+            animation: float 8s ease-in-out infinite reverse;
+        }
+
+        @keyframes float {
+            0%, 100% { transform: translateY(0px); }
+            50% { transform: translateY(30px); }
+        }
+
+        .hero-content {
+            position: relative;
+            z-index: 10;
+            max-width: 900px;
+        }
+
+        .hero-badge {
+            display: inline-block;
+            background: rgba(0, 170, 255, 0.15);
+            border: 1px solid var(--primary);
+            color: var(--primary);
+            padding: 0.5rem 1rem;
+            border-radius: 50px;
+            font-size: 0.85rem;
+            font-weight: 600;
+            margin-bottom: 1rem;
+            animation: slideDown 0.6s ease;
+        }
+
+        @keyframes slideDown {
+            from { opacity: 0; transform: translateY(-20px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        .hero h1 {
+            font-size: clamp(2.5rem, 8vw, 4.5rem);
+            font-weight: 900;
+            margin: 1.5rem 0;
+            line-height: 1.2;
+            background: linear-gradient(135deg, var(--primary) 0%, var(--secondary) 50%, var(--accent) 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            animation: slideDown 0.7s ease 0.1s backwards;
+        }
+
+        .hero p {
+            font-size: 1.2rem;
+            color: var(--text-muted);
+            margin-bottom: 2rem;
+            animation: slideDown 0.7s ease 0.2s backwards;
+        }
+
+        .hero-buttons {
+            display: flex;
+            gap: 1rem;
+            justify-content: center;
+            flex-wrap: wrap;
+            animation: slideDown 0.7s ease 0.3s backwards;
+        }
+
+        .btn-primary {
+            background: linear-gradient(135deg, var(--primary) 0%, var(--primary-dark) 100%);
+            color: white;
+            border: none;
+            padding: 1rem 2.5rem;
+            border-radius: 10px;
+            font-weight: 700;
+            font-size: 1.05rem;
+            cursor: pointer;
+            transition: all 0.3s;
+            box-shadow: 0 10px 30px rgba(0, 170, 255, 0.2);
+        }
+
+        .btn-primary:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 15px 40px rgba(0, 170, 255, 0.4);
+        }
+
+        .btn-secondary {
+            background: transparent;
+            color: var(--primary);
+            border: 2px solid var(--primary);
+            padding: 0.95rem 2.4rem;
+            border-radius: 10px;
+            font-weight: 700;
+            font-size: 1.05rem;
+            cursor: pointer;
+            transition: all 0.3s;
+        }
+
+        .btn-secondary:hover {
+            background: rgba(0, 170, 255, 0.1);
+            transform: translateY(-3px);
+        }
+
+        .hero-stats {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+            gap: 2rem;
+            margin-top: 4rem;
+            padding-top: 4rem;
+            border-top: 1px solid rgba(255, 255, 255, 0.1);
+        }
+
+        .stat {
+            text-align: center;
+        }
+
+        .stat-number {
+            font-size: 2.5rem;
+            font-weight: 900;
+            background: linear-gradient(135deg, var(--primary) 0%, var(--secondary) 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+
+        .stat-label {
+            color: var(--text-muted);
+            font-size: 0.9rem;
+            margin-top: 0.5rem;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+        }
+
+        /* ============ FEATURES ============ */
+        .features {
+            padding: 5rem 2rem;
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+
+        .section-title {
+            font-size: 2.5rem;
+            font-weight: 900;
+            text-align: center;
+            margin-bottom: 3rem;
+            background: linear-gradient(135deg, var(--primary) 0%, var(--secondary) 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+
+        .features-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 2rem;
+        }
+
+        .feature-card {
+            background: rgba(255, 255, 255, 0.05);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            padding: 2rem;
+            border-radius: 15px;
+            transition: all 0.3s;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .feature-card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            height: 3px;
+            background: linear-gradient(90deg, var(--primary), var(--secondary), transparent);
+        }
+
+        .feature-card:hover {
+            background: rgba(0, 170, 255, 0.1);
+            border-color: var(--primary);
+            transform: translateY(-5px);
+            box-shadow: 0 20px 40px rgba(0, 170, 255, 0.15);
+        }
+
+        .feature-icon {
+            font-size: 2.5rem;
+            margin-bottom: 1rem;
+        }
+
+        .feature-title {
+            font-size: 1.3rem;
+            font-weight: 700;
+            margin-bottom: 0.75rem;
+            color: white;
+        }
+
+        .feature-desc {
+            color: var(--text-muted);
+            font-size: 0.95rem;
+            line-height: 1.6;
+        }
+
+        /* ============ DEMO ============ */
+        .demo {
+            padding: 5rem 2rem;
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+
+        .demo-container {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 3rem;
+            align-items: center;
+        }
+
+        .demo-text h2 {
+            font-size: 2rem;
+            margin-bottom: 1rem;
+            color: white;
+        }
+
+        .demo-text p {
+            color: var(--text-muted);
+            margin-bottom: 1.5rem;
+            font-size: 1.05rem;
+        }
+
+        .code-block {
+            background: rgba(20, 20, 30, 0.9);
+            border: 1px solid rgba(0, 170, 255, 0.3);
+            border-radius: 12px;
+            padding: 1.5rem;
+            font-family: 'Courier New', monospace;
+            font-size: 0.85rem;
+            line-height: 1.7;
+            color: var(--secondary);
+            overflow-x: auto;
+            position: relative;
+        }
+
+        .code-block::before {
+            content: '⚡ AI Generated';
+            position: absolute;
+            top: 0.5rem;
+            right: 0.5rem;
+            background: rgba(0, 170, 255, 0.2);
+            color: var(--primary);
+            padding: 0.25rem 0.75rem;
+            border-radius: 4px;
+            font-size: 0.7rem;
+            font-weight: 600;
+        }
+
+        .code-comment { color: #666; }
+        .code-keyword { color: var(--primary); }
+        .code-string { color: var(--secondary); }
+        .code-function { color: #ffb86c; }
+
+        @media (max-width: 768px) {
+            .demo-container {
+                grid-template-columns: 1fr;
+            }
+        }
+
+        /* ============ PRICING ============ */
+        .pricing {
+            padding: 5rem 2rem;
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+
+        .pricing-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 2rem;
+        }
+
+        .price-card {
+            background: rgba(255, 255, 255, 0.05);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            padding: 2rem;
+            border-radius: 15px;
+            text-align: center;
+            transition: all 0.3s;
+            position: relative;
+        }
+
+        .price-card.popular {
+            border-color: var(--primary);
+            background: linear-gradient(135deg, rgba(0, 170, 255, 0.1) 0%, rgba(0, 212, 127, 0.05) 100%);
+            transform: scale(1.05);
+        }
+
+        .price-card:hover {
+            border-color: var(--primary);
+            background: rgba(0, 170, 255, 0.1);
+            transform: translateY(-5px);
+        }
+
+        .popular-badge {
+            position: absolute;
+            top: -12px;
+            left: 50%;
+            transform: translateX(-50%);
+            background: linear-gradient(135deg, var(--primary) 0%, var(--secondary) 100%);
+            color: var(--dark);
+            padding: 0.4rem 1rem;
+            border-radius: 50px;
+            font-size: 0.75rem;
+            font-weight: 700;
+        }
+
+        .price-card h3 {
+            font-size: 1.5rem;
+            margin: 1rem 0;
+            color: white;
+        }
+
+        .price-amount {
+            font-size: 2.5rem;
+            font-weight: 900;
+            background: linear-gradient(135deg, var(--primary) 0%, var(--secondary) 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+
+        .price-robux {
+            color: var(--accent);
+            font-weight: 700;
+            margin: 0.5rem 0 1.5rem 0;
+        }
+
+        .price-features {
+            list-style: none;
+            text-align: left;
+            margin-bottom: 1.5rem;
+        }
+
+        .price-features li {
+            color: var(--text-muted);
+            padding: 0.5rem 0;
+            font-size: 0.9rem;
+            border-bottom: 1px solid rgba(255, 255, 255, 0.05);
+        }
+
+        .price-features li:before {
+            content: '✓ ';
+            color: var(--secondary);
+            font-weight: 700;
+            margin-right: 0.5rem;
+        }
+
+        .price-btn {
+            width: 100%;
+            background: linear-gradient(135deg, var(--primary) 0%, var(--primary-dark) 100%);
+            color: white;
+            border: none;
+            padding: 0.8rem;
+            border-radius: 8px;
+            font-weight: 700;
+            cursor: pointer;
+            transition: all 0.3s;
+        }
+
+        .price-btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 10px 25px rgba(0, 170, 255, 0.3);
+        }
+
+        /* ============ CTA ============ */
+        .cta {
+            padding: 5rem 2rem;
+            text-align: center;
+            background: linear-gradient(135deg, rgba(0, 170, 255, 0.1) 0%, rgba(0, 212, 127, 0.05) 100%);
+            border: 1px solid rgba(0, 170, 255, 0.2);
+            border-radius: 20px;
+            max-width: 800px;
+            margin: 5rem auto;
+        }
+
+        .cta h2 {
+            font-size: 2.5rem;
+            margin-bottom: 1rem;
+            color: white;
+        }
+
+        .cta p {
+            font-size: 1.1rem;
+            color: var(--text-muted);
+            margin-bottom: 2rem;
+        }
+
+        /* ============ FOOTER ============ */
+        footer {
+            background: rgba(5, 8, 16, 0.95);
+            border-top: 1px solid rgba(255, 255, 255, 0.1);
+            padding: 3rem 2rem;
+            margin-top: 5rem;
+        }
+
+        .footer-container {
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+
+        .footer-top {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 2rem;
+            margin-bottom: 2rem;
+            padding-bottom: 2rem;
+            border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+        }
+
+        .footer-section h4 {
+            color: var(--primary);
+            margin-bottom: 1rem;
+            font-weight: 700;
+        }
+
+        .footer-section a {
+            display: block;
+            color: var(--text-muted);
+            text-decoration: none;
+            margin-bottom: 0.5rem;
+            transition: color 0.3s;
+        }
+
+        .footer-section a:hover {
+            color: var(--primary);
+        }
+
+        .footer-bottom {
+            text-align: center;
+            color: var(--text-muted);
+            font-size: 0.9rem;
+        }
+
+        .footer-logo {
+            font-size: 1.5rem;
+            font-weight: 900;
+            background: linear-gradient(135deg, var(--primary) 0%, var(--secondary) 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            margin-bottom: 0.5rem;
+        }
+
+        /* ============ MODAL ============ */
+        .modal {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: rgba(0, 0, 0, 0.7);
+            backdrop-filter: blur(5px);
+            align-items: center;
+            justify-content: center;
+            z-index: 1000;
+            padding: 2rem;
+        }
+
+        .modal.active {
+            display: flex;
+        }
+
+        .modal-content {
+            background: linear-gradient(135deg, rgba(10, 14, 39, 0.95) 0%, rgba(5, 8, 16, 0.95) 100%);
+            border: 1px solid rgba(0, 170, 255, 0.3);
+            border-radius: 15px;
+            padding: 3rem;
+            max-width: 600px;
+            width: 100%;
+            animation: modalSlide 0.3s ease;
+        }
+
+        @keyframes modalSlide {
+            from {
+                opacity: 0;
+                transform: translateY(30px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        .modal-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 1.5rem;
+        }
+
+        .modal-header h2 {
+            font-size: 1.8rem;
+            color: white;
+        }
+
+        .modal-close {
+            background: none;
+            border: none;
+            font-size: 1.5rem;
+            color: var(--text-muted);
+            cursor: pointer;
+            transition: color 0.3s;
+        }
+
+        .modal-close:hover {
+            color: var(--primary);
+        }
+
+        .modal-body {
+            color: var(--text-muted);
+            line-height: 1.8;
+        }
+
+        .modal-body h3 {
+            color: var(--primary);
+            margin-top: 1.5rem;
+            margin-bottom: 0.75rem;
+            font-size: 1.1rem;
+        }
+
+        .modal-body ol {
+            margin-left: 1.5rem;
+            margin-bottom: 1rem;
+        }
+
+        .modal-body li {
+            margin-bottom: 0.5rem;
+        }
+
+        .modal-code {
+            background: rgba(20, 20, 30, 0.9);
+            border: 1px solid rgba(0, 170, 255, 0.2);
+            padding: 1rem;
+            border-radius: 8px;
+            font-family: 'Courier New', monospace;
+            font-size: 0.8rem;
+            overflow-x: auto;
+            color: var(--secondary);
+            margin: 1rem 0;
+        }
+
+        .copy-code-btn {
+            background: var(--primary);
+            color: var(--dark);
+            border: none;
+            padding: 0.5rem 1rem;
+            border-radius: 6px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s;
+            font-size: 0.85rem;
+            margin-top: 0.5rem;
+        }
+
+        .copy-code-btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 5px 15px rgba(0, 170, 255, 0.3);
+        }
+
+        /* ============ RESPONSIVE ============ */
+        @media (max-width: 768px) {
+            .header-nav {
+                display: none;
+            }
+
+            .hero-buttons {
+                flex-direction: column;
+            }
+
+            .btn-primary, .btn-secondary {
+                width: 100%;
+            }
+
+            .modal-content {
+                padding: 2rem;
+            }
+
+            .section-title {
+                font-size: 1.8rem;
+            }
+        }
+
+        /* ============ LOADING ============ */
+        .spinner {
+            border: 3px solid rgba(0, 170, 255, 0.2);
+            border-top-color: var(--primary);
+            border-radius: 50%;
+            width: 30px;
+            height: 30px;
+            animation: spin 1s linear infinite;
+            display: inline-block;
+        }
+
+        @keyframes spin {
+            to { transform: rotate(360deg); }
+        }
+    </style>
+</head>
+<body>
+    <!-- ============ HEADER ============ -->
+    <header>
+        <div class="header-container">
+            <div class="header-logo">⚡ Voxel.gg</div>
+            <nav class="header-nav">
+                <a href="#features">Features</a>
+                <a href="#demo">Demo</a>
+                <a href="#pricing">Pricing</a>
+                <a href="#faq">FAQ</a>
+            </nav>
+            <button class="install-btn" onclick="openInstallModal()">Get Plugin</button>
+        </div>
+    </header>
+
+    <!-- ============ HERO ============ -->
+    <section class="hero">
+        <div class="hero-content">
+            <div class="hero-badge">⚡ AI-Powered Roblox Development</div>
+            <h1>Generate Luau Scripts in Seconds</h1>
+            <p>Describe what you want. Voxel.gg generates production-ready Roblox code instantly. Available 24/7 in Roblox Studio.</p>
+            
+            <div class="hero-buttons">
+                <button class="btn-primary" onclick="openInstallModal()">📥 Install Plugin</button>
+                <button class="btn-secondary" onclick="document.getElementById('features').scrollIntoView()">Learn More</button>
+            </div>
+
+            <div class="hero-stats">
+                <div class="stat">
+                    <div class="stat-number">44K+</div>
+                    <div class="stat-label">Daily Capacity</div>
+                </div>
+                <div class="stat">
+                    <div class="stat-number">3</div>
+                    <div class="stat-label">AI Providers</div>
+                </div>
+                <div class="stat">
+                    <div class="stat-number">20</div>
+                    <div class="stat-label">Free Monthly</div>
+                </div>
+                <div class="stat">
+                    <div class="stat-number">0.8¢</div>
+                    <div class="stat-label">Per Script</div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- ============ FEATURES ============ -->
+    <section class="features" id="features">
+        <h2 class="section-title">Why Developers Love Voxel</h2>
+        
+        <div class="features-grid">
+            <div class="feature-card">
+                <div class="feature-icon">⚡</div>
+                <h3 class="feature-title">Lightning Fast</h3>
+                <p class="feature-desc">Groq's ultra-fast inference engine generates code in milliseconds. No waiting around.</p>
+            </div>
+
+            <div class="feature-card">
+                <div class="feature-icon">🔒</div>
+                <h3 class="feature-title">#!strict Compliant</h3>
+                <p class="feature-desc">Every script is #!strict-ready with proper type annotations. Modern Roblox best practices.</p>
+            </div>
+
+            <div class="feature-card">
+                <div class="feature-icon">🛡️</div>
+                <h3 class="feature-title">Triple Failover</h3>
+                <p class="feature-desc">Groq → Gemini → OpenRouter. If one hits limits, we seamlessly switch. Never down.</p>
+            </div>
+
+            <div class="feature-card">
+                <div class="feature-icon">💰</div>
+                <h3 class="feature-title">Robux Payments</h3>
+                <p class="feature-desc">Buy credits with Robux directly in Studio. All revenue supports Kamran090907.</p>
+            </div>
+
+            <div class="feature-card">
+                <div class="feature-icon">🎯</div>
+                <h3 class="feature-title">Studio Integrated</h3>
+                <p class="feature-desc">One-click script creation. Paste code in Studio, click Insert, and it's in your game instantly.</p>
+            </div>
+
+            <div class="feature-card">
+                <div class="feature-icon">🤖</div>
+                <h3 class="feature-title">Smart Pricing</h3>
+                <p class="feature-desc">Small prompts cost 0.8 credits. Large ones cost 2.5. Always know the price upfront.</p>
+            </div>
+        </div>
+    </section>
+
+    <!-- ============ DEMO ============ -->
+    <section class="demo" id="demo">
+        <div class="demo-container">
+            <div class="demo-text">
+                <h2>See It In Action</h2>
+                <p>Type a simple description like <strong>"Give players 10 coins when they touch a part"</strong> and Voxel generates production-ready code.</p>
+                <p>No more searching Stack Overflow. No more copying examples. Just describe, generate, and ship.</p>
+                <p style="margin-top: 2rem; color: var(--primary); font-weight: 600;">Try it now → Install the plugin and start building!</p>
+            </div>
+
+            <div class="code-block"><span class="code-comment">--!strict</span>
+<span class="code-keyword">local</span> Players = <span class="code-function">game</span>:<span class="code-function">GetService</span>(<span class="code-string">"Players"</span>)
+
+<span class="code-keyword">local</span> <span class="code-keyword">function</span> <span class="code-function">giveCoins</span>(player: Player, amount: <span class="code-keyword">number</span>)
+    <span class="code-keyword">local</span> leaderstats = player:<span class="code-function">FindFirstChild</span>(<span class="code-string">"leaderstats"</span>)
+    <span class="code-keyword">if</span> leaderstats <span class="code-keyword">then</span>
+        <span class="code-keyword">local</span> coins = leaderstats:<span class="code-function">FindFirstChild</span>(<span class="code-string">"Coins"</span>)
+        <span class="code-keyword">if</span> coins <span class="code-keyword">then</span>
+            coins.Value += amount
+        <span class="code-keyword">end</span>
+    <span class="code-keyword">end</span>
+<span class="code-keyword">end</span>
+
+<span class="code-comment">-- Generated by Voxel ⚡</span>
+            </div>
+        </div>
+    </section>
+
+    <!-- ============ PRICING ============ -->
+    <section class="pricing" id="pricing">
+        <h2 class="section-title">Simple, Transparent Pricing</h2>
+        <p style="text-align: center; color: var(--text-muted); margin-bottom: 3rem; font-size: 1.1rem;">20 free credits every month. Buy more with Robux when you need them.</p>
+        
+        <div class="pricing-grid">
+            <div class="price-card">
+                <h3>Starter</h3>
+                <div class="price-amount">50</div>
+                <div class="price-robux">25 Robux</div>
+                <ul class="price-features">
+                    <li>~62 small scripts</li>
+                    <li>~20 large scripts</li>
+                    <li>Never expires</li>
+                </ul>
+                <button class="price-btn">Buy Now</button>
+            </div>
+
+            <div class="price-card popular">
+                <div class="popular-badge">⭐ BEST VALUE</div>
+                <h3>Builder</h3>
+                <div class="price-amount">100</div>
+                <div class="price-robux">49 Robux</div>
+                <ul class="price-features">
+                    <li>~125 small scripts</li>
+                    <li>~40 large scripts</li>
+                    <li>Never expires</li>
+                </ul>
+                <button class="price-btn">Buy Now</button>
+            </div>
+
+            <div class="price-card">
+                <h3>Studio</h3>
+                <div class="price-amount">250</div>
+                <div class="price-robux">99 Robux</div>
+                <ul class="price-features">
+                    <li>~312 small scripts</li>
+                    <li>~100 large scripts</li>
+                    <li>Never expires</li>
+                </ul>
+                <button class="price-btn">Buy Now</button>
+            </div>
+
+            <div class="price-card">
+                <h3>Pro</h3>
+                <div class="price-amount">1000</div>
+                <div class="price-robux">349 Robux</div>
+                <ul class="price-features">
+                    <li>~1250 small scripts</li>
+                    <li>~400 large scripts</li>
+                    <li>Never expires</li>
+                </ul>
+                <button class="price-btn">Buy Now</button>
+            </div>
+        </div>
+    </section>
+
+    <!-- ============ CTA ============ -->
+    <section class="cta">
+        <h2>Ready to Build Faster?</h2>
+        <p>Join thousands of Roblox developers who are shipping games 10x faster with Voxel.gg</p>
+        <button class="btn-primary" onclick="openInstallModal()">Get Started Free (20 Credits/Month)</button>
+    </section>
+
+    <!-- ============ FOOTER ============ -->
+    <footer>
+        <div class="footer-container">
+            <div class="footer-top">
+                <div>
+                    <div class="footer-logo">⚡ Voxel.gg</div>
+                    <p style="color: var(--text-muted); font-size: 0.9rem;">AI-powered script generation for Roblox developers.</p>
+                </div>
+                <div class="footer-section">
+                    <h4>Product</h4>
+                    <a href="#features">Features</a>
+                    <a href="#pricing">Pricing</a>
+                    <a href="#faq">FAQ</a>
+                </div>
+                <div class="footer-section">
+                    <h4>Community</h4>
+                    <a href="#" onclick="alert('Discord link coming soon!')">Discord</a>
+                    <a href="#" onclick="alert('GitHub link coming soon!')">GitHub</a>
+                    <a href="#" onclick="alert('Group link coming soon!')">Roblox Group</a>
+                </div>
+                <div class="footer-section">
+                    <h4>Creator</h4>
+                    <a href="#">Kamran090907</a>
+                    <a href="#">Support</a>
+                </div>
+            </div>
+            <div class="footer-bottom">
+                <p>© 2026 Voxel.gg • Built for Roblox developers • All Robux payments support the creator directly</p>
+            </div>
+        </div>
+    </footer>
+
+    <!-- ============ INSTALL MODAL ============ -->
+    <div class="modal" id="installModal">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h2>📥 Install the Plugin</h2>
+                <button class="modal-close" onclick="closeInstallModal()">✕</button>
+            </div>
+            <div class="modal-body">
+                <p>Follow these steps to install Voxel.gg in Roblox Studio:</p>
+
+                <h3>Step 1: Copy the Plugin Code</h3>
+                <p>Click the button below to copy the complete plugin code:</p>
+                <button class="copy-code-btn" onclick="copyPluginCode()">Copy Plugin Code</button>
+
+                <h3>Step 2: Open Roblox Studio</h3>
+                <p>Open any Roblox game in Roblox Studio.</p>
+
+                <h3>Step 3: Install Plugin</h3>
+                <ol>
+                    <li>Go to <strong>Home → Plugins → Manage Plugins</strong></li>
+                    <li>Click <strong>Create New Plugin</strong></li>
+                    <li>Paste the plugin code you copied</li>
+                    <li>Click <strong>Save</strong></li>
+                    <li>Reload or restart Studio</li>
+                </ol>
+
+                <h3>Step 4: Use It!</h3>
+                <p>You'll see a <strong>🤖 Voxel</strong> button in your toolbar. Click it to open the generator!</p>
+
+                <div style="margin-top: 2rem; padding: 1rem; background: rgba(0, 170, 255, 0.1); border-radius: 8px; border-left: 3px solid var(--primary);">
+                    <strong>💡 Tip:</strong> Make sure you have an internet connection. The plugin communicates with Voxel's servers to generate code.
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        function openInstallModal() {
+            document.getElementById('installModal').classList.add('active');
+        }
+
+        function closeInstallModal() {
+            document.getElementById('installModal').classList.remove('active');
+        }
+
+        function copyPluginCode() {
+            alert('Plugin code feature coming soon! For now, get the full code from the GitHub repository.');
+        }
+
+        // Close modal when clicking outside
+        document.getElementById('installModal').addEventListener('click', (e) => {
+            if (e.target.id === 'installModal') {
+                closeInstallModal();
+            }
+        });
+
+        // Smooth scroll for navigation
+        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+            anchor.addEventListener('click', function (e) {
+                const href = this.getAttribute('href');
+                if (href !== '#' && document.querySelector(href)) {
+                    e.preventDefault();
+                    document.querySelector(href).scrollIntoView({ behavior: 'smooth' });
+                }
+            });
+        });
+    </script>
+</body>
+</html>
