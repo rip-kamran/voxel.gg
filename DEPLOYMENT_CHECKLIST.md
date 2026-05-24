@@ -28,9 +28,9 @@
 - [ ] Copy entire code from `supabase_edge_function.ts`
 - [ ] Paste into editor
 - [ ] Add these environment variables:
-  - [ ] `GROQ_KEY=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`
-  - [ ] `GEMINI_KEY=AIzaSyCZhjHSXLFX0y6VCMmS2o7Hwp2FPl6jIC8`
-  - [ ] `CEREBRAS_KEY=csk-rmpknrf5ytjedw4pmrf8kjn49wyj9tfwecrjm5xdxhpvv624`
+  - [ ] `GROQ_KEY=YOUR_GROQ_KEY`
+  - [ ] `GEMINI_KEY=YOUR_GEMINI_KEY`
+  - [ ] `CEREBRAS_KEY=YOUR_CEREBRAS_KEY`
   - [ ] `SUPABASE_URL=` (your URL from Phase 1)
   - [ ] `SUPABASE_SERVICE_ROLE_KEY=` (your key from Phase 1)
 - [ ] Click "Deploy"

@@ -28,9 +28,9 @@ Your package.json is fixed! Node 20.x is now set.
 4. Choose: **rip-kamran/voxel-gg**
 5. **Root Directory:** Set to `backend/`
 6. **Add Environment Variables:**
-   - `GROQ_KEY=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`
-   - `GEMINI_KEY=AIzaSyCZhjHSXLFX0y6VCMmS2o7Hwp2FPl6jIC8`
-   - `CEREBRAS_KEY=csk-rmpknrf5ytjedw4pmrf8kjn49wyj9tfwecrjm5xdxhpvv624`
+   - `GROQ_KEY=YOUR_GROQ_KEY`
+   - `GEMINI_KEY=YOUR_GEMINI_KEY`
+   - `CEREBRAS_KEY=YOUR_CEREBRAS_KEY`
    - `NODE_ENV=production`
    - `PORT=3000`
 7. Click: **"Deploy"**
